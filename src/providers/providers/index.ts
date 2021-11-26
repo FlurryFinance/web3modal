@@ -22,6 +22,8 @@ import BitskiLogo from "../logos/bitski.svg";
 import FrameLogo from "../logos/frame.svg";
 // @ts-ignore
 import CoinbaseLogo from "../logos/coinbase.svg";
+// @ts-ignore
+import Coin98Logo from "../logos/coin98.png";
 
 import { IProviderInfo } from "../../helpers";
 
