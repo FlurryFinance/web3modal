@@ -30,6 +30,8 @@ export interface IProviderInfo extends IProviderDisplay {
   type: string;
   check: string;
   package?: IProviderPackageOptions;
+  isVip?: boolean;
+  url?: string;
 }
 
 export type RequiredOption = string | string[];

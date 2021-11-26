@@ -3,7 +3,8 @@ import {
   CONNECT_EVENT,
   ERROR_EVENT,
   INJECTED_PROVIDER_ID,
-  CACHED_PROVIDER_KEY
+  CACHED_PROVIDER_KEY,
+  MESSAGE_EVENT
 } from "../constants";
 import {
   isMobile,
@@ -19,7 +20,8 @@ import {
   filterMatches,
   IProviderUserOptions,
   getInjectedProvider,
-  findMatchingRequiredOptions
+  findMatchingRequiredOptions,
+  getVipInjectedProviders
 } from "../helpers";
 import { EventController } from "./events";
 
@@ -30,6 +32,7 @@ export class ProviderController {
 
   private eventController: EventController = new EventController();
   private injectedProvider: IProviderInfo | null = null;
+  private vipInjectedProviders: IProviderInfo[] = [];
   private providers: IProviderDisplayWithConnector[] = [];
   private providerOptions: IProviderOptions;
   private network: string = "";
@@ -43,11 +46,13 @@ export class ProviderController {
     this.network = opts.network;
 
     this.injectedProvider = getInjectedProvider();
-
+    this.vipInjectedProviders = getVipInjectedProviders();
     this.providers = Object.keys(list.connectors).map((id: string) => {
       let providerInfo: IProviderInfo;
       if (id === INJECTED_PROVIDER_ID) {
         providerInfo = this.injectedProvider || list.providers.FALLBACK;
+      } else if (this.vipInjectedProviders.map(p => p.id).includes(id)) {
+        providerInfo = this.vipInjectedProviders.filter(p => p.id === id)[0];
       } else {
         providerInfo = getProviderInfoById(id);
       }
@@ -122,11 +127,14 @@ export class ProviderController {
     const mobile = isMobile();
 
     const defaultProviderList = this.providers.map(({ id }) => id);
+    const vipInjectedProvideList = this.vipInjectedProviders.map(
+      ({ id }) => id
+    );
 
     const displayInjected =
       !!this.injectedProvider && !this.disableInjectedProvider;
-    const onlyInjected = displayInjected && mobile;
 
+    const onlyInjected = displayInjected && mobile;
     const providerList = [];
 
     if (onlyInjected) {
@@ -135,6 +143,11 @@ export class ProviderController {
       if (displayInjected) {
         providerList.push(INJECTED_PROVIDER_ID);
       }
+
+      // push it first to make vip wallets just below metamask at the moment. suggest adding order to provider list later
+      vipInjectedProvideList.forEach((id: string) => {
+        providerList.push(id);
+      });
 
       defaultProviderList.forEach((id: string) => {
         if (id !== INJECTED_PROVIDER_ID) {
@@ -150,6 +163,7 @@ export class ProviderController {
 
     providerList.forEach((id: string) => {
       let provider = this.getProvider(id);
+
       if (typeof provider !== "undefined") {
         const { id, name, logo, connector } = provider;
         userOptions.push({
@@ -204,7 +218,12 @@ export class ProviderController {
         this.setCachedProvider(id);
       }
     } catch (error) {
-      this.eventController.trigger(ERROR_EVENT);
+      if (this.vipInjectedProviders.map(({ id }) => id).includes(id)) {
+        const provider = this.vipInjectedProviders.filter(({ id }) => id)[0];
+        this.eventController.trigger(MESSAGE_EVENT, provider);
+      } else {
+        this.eventController.trigger(ERROR_EVENT);
+      }
     }
   };
 
