@@ -4,9 +4,7 @@
 
 ```bash
 npm install --save walletlink
-
 # OR
-
 yarn add walletlink
 ```
 
@@ -14,20 +12,19 @@ yarn add walletlink
 
 ```typescript
 import WalletLink from "walletlink";
-
 const providerOptions = {
   walletlink: {
-    package: WalletLink,           // required
+    package: WalletLink, // Required
     options: {
-      appName: "Your Dapp Name",   // required
-      appLogoUrl: "DAPP_LOGO_URL", // optional - favicon is used if unspecified
-      darkMode: false,             // optional - false if unspecified
-      walletLinkUrl: "SERVER_URL", // optional - WalletLink server URL; for most, leave it unspecified
-      jsonRpcUrl: "JSON_RPC_URL",  // required
-      chainId: 1                   // optional - 1 is used if unspecified
+      infuraId: "INFURA_ID", // Required unless you provide a JSON RPC url; see `rpc` below
+      rpc: "", // Optional if `infuraId` is provided; otherwise it's required
+      chainId: 1, // Optional. It defaults to 1 if not provided
+      appName: "My Awesome App", // Required
+      appLogoUrl: null, // Optional. Application logo image URL. favicon is used if unspecified
+      darkMode: false // Optional. Use dark theme, defaults to false
     }
   }
 };
 ```
 
-[See the full list of options for WalletLink Web3 provider](https://github.com/walletlink/walletlink#initializing-walletlink-and-a-walletlink-powered-web3-object).
+[For more information on WalletLink Web3 provider](https://github.com/walletlink/walletlink).

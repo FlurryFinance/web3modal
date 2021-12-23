@@ -263,8 +263,8 @@ class App extends React.Component<any, any> {
       walletlink: {
         package: WalletLink,
         options: {
-          appName: "Example Dapp",
-          jsonRpcUrl: `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_ID}`
+          appName: "Web3Modal Example App",
+          infuraId: process.env.REACT_APP_INFURA_ID
         }
       }
     };

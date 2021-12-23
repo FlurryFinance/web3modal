@@ -138,13 +138,13 @@ export const FRAME: IProviderInfo = {
   check: "isFrameNative"
 };
 
-export const WALLETLINK: IProviderInfo = {
+export const WALLETLINK: IProviderInfo = {  
   id: "walletlink",
   name: "Coinbase Wallet",
   logo: CoinbaseLogo,
   type: "qrcode",
   check: "isWalletLink",
   package: {
-    required: ["appName", "jsonRpcUrl"]
+    required: [["infuraId", "rpc", "appName"]]
   }
 };

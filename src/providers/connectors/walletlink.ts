@@ -1,12 +1,12 @@
 import { IAbstractConnectorOptions } from "../../helpers";
 
 export interface IWalletLinkConnectorOptions extends IAbstractConnectorOptions {
-  appName: string;
+  infuraId?: string;
+  rpc?: { [chainId: number]: string };
+  chainId?: number;
+  appName?: string;
   appLogoUrl?: string;
   darkMode?: boolean;
-  walletLinkUrl?: string;
-  jsonRpcUrl: string;
-  chainId?: number;
 }
 
 const ConnectToWalletLink = (
@@ -14,25 +14,30 @@ const ConnectToWalletLink = (
   opts: IWalletLinkConnectorOptions
 ) => {
   return new Promise(async (resolve, reject) => {
-    const appName = opts.appName;
-    const appLogoUrl = opts.appLogoUrl;
-    const darkMode = opts.darkMode;
-    const walletLinkUrl = opts.walletLinkUrl;
-    const jsonRpcUrl = opts.jsonRpcUrl;
-    const chainId = typeof opts.chainId !== "undefined" ? opts.chainId : 1;
+    const options = opts || {};
+    const infuraId = options.infuraId || "";
+    const chainId = options.chainId || 1;
+    const appName = options.appName || "";
+    const appLogoUrl = options.appLogoUrl;
+    const darkMode = options.darkMode || false;
+
+    let rpc = options.rpc || undefined;
+    if (options.infuraId && !options.rpc) {
+      rpc = `https://mainnet.infura.io/v3/${infuraId}`;
+    }
+
+    const walletLink = new WalletLink({
+      appName,
+      appLogoUrl,
+      darkMode
+    });
 
     try {
-      const provider = new WalletLink({
-        appName,
-        appLogoUrl,
-        darkMode,
-        walletLinkUrl
-      }).makeWeb3Provider(jsonRpcUrl, chainId);
-
-      await provider.send("eth_requestAccounts");
+      const provider = walletLink.makeWeb3Provider(rpc, chainId);
+      await provider.send('eth_requestAccounts');
       resolve(provider);
-    } catch (error) {
-      reject(error);
+    } catch (e) {
+      reject(e);
     }
   });
 };
