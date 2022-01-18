@@ -222,7 +222,7 @@ export class ProviderController {
         const provider = this.vipInjectedProviders.filter(({ id }) => id)[0];
         this.eventController.trigger(MESSAGE_EVENT, provider);
       } else {
-        this.eventController.trigger(ERROR_EVENT);
+        this.eventController.trigger(ERROR_EVENT, error);
       }
     }
   };

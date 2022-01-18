@@ -5,7 +5,7 @@ import PortisLogo from "../logos/portis.svg";
 // @ts-ignore
 import FortmaticLogo from "../logos/fortmatic.svg";
 // @ts-ignore
-import ArkaneLogo from "../logos/arkane.svg";
+import VenlyLogo from "../logos/venly.svg";
 // @ts-ignore
 import TorusLogo from "../logos/torus.svg";
 // @ts-ignore
@@ -21,9 +21,9 @@ import BitskiLogo from "../logos/bitski.svg";
 // @ts-ignore
 import FrameLogo from "../logos/frame.svg";
 // @ts-ignore
-import CoinbaseLogo from "../logos/coinbase.svg";
+import BinanceChainWalletLogo from "../logos/binancechainwallet.svg";
 // @ts-ignore
-import Coin98Logo from "../logos/coin98.png";
+import WalletLinkLogo from "../logos/walletlink.svg";
 
 import { IProviderInfo } from "../../helpers";
 
@@ -70,12 +70,12 @@ export const TORUS: IProviderInfo = {
   check: "isTorus"
 };
 
-export const ARKANE: IProviderInfo = {
-  id: "arkane",
-  name: "Arkane",
-  logo: ArkaneLogo,
+export const VENLY: IProviderInfo = {
+  id: "venly",
+  name: "Venly",
+  logo: VenlyLogo,
   type: "web",
-  check: "isArkane",
+  check: "isVenly",
   package: {
     required: ["clientId"]
   }
@@ -138,13 +138,21 @@ export const FRAME: IProviderInfo = {
   check: "isFrameNative"
 };
 
-export const WALLETLINK: IProviderInfo = {  
+export const BINANCECHAINWALLET: IProviderInfo = {
+  id: "binancechainwallet",
+  name: "Binance Chain",
+  logo: BinanceChainWalletLogo,
+  type: "injected",
+  check: "isBinanceChainWallet"
+};
+
+export const WALLETLINK: IProviderInfo = {
   id: "walletlink",
   name: "Coinbase Wallet",
-  logo: CoinbaseLogo,
+  logo: WalletLinkLogo,
   type: "qrcode",
   check: "isWalletLink",
   package: {
-    required: [["infuraId", "rpc", "appName"]]
+    required: [["appName", "infuraId", "rpc"]]
   }
 };

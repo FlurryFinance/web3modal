@@ -30,6 +30,16 @@ import FrameLogo from "../logos/frame.svg";
 import LiqualityLogo from "../logos/liquality.png";
 // @ts-ignore
 import Coin98Logo from "../logos/coin98.png";
+// @ts-ignore
+import MathWalletLogo from "../logos/mathwallet.png";
+// @ts-ignore
+import RWalletLogo from "../logos/rwallet.svg";
+// @ts-ignore
+import BitpieLogo from "../logos/bitpie.svg";
+// @ts-ignore
+import XDEFILogo from "../logos/xdefi.svg";
+// @ts-ignore
+import CeloExtensionWalletLogo from "../logos/celoExtensionWallet.svg";
 
 export const FALLBACK: IProviderInfo = {
   id: "injected",
@@ -151,4 +161,44 @@ export const LIQUALITY: IProviderInfo = {
   logo: LiqualityLogo,
   type: "injected",
   check: "isLiquality"
+};
+
+export const MATHWALLET: IProviderInfo = {
+  id: "injected",
+  name: "Math Wallet",
+  logo: MathWalletLogo,
+  type: "injected",
+  check: "isMathWallet"
+};
+
+export const RWALLET: IProviderInfo = {
+  id: "injected",
+  name: "rWallet",
+  logo: RWalletLogo,
+  type: "injected",
+  check: "isRWallet"
+};
+
+export const XDEFI: IProviderInfo = {
+  id: "injected",
+  name: "XDEFI",
+  logo: XDEFILogo,
+  type: "injected",
+  check: "__XDEFI"
+};
+
+export const BITPIE: IProviderInfo = {
+  id: "injected",
+  name: "Bitpie",
+  logo: BitpieLogo,
+  type: "injected",
+  check: "isBitpie"
+};
+
+export const CELOINJECTED: IProviderInfo = {
+  id: "injected",
+  name: "Celo extension wallet",
+  logo: CeloExtensionWalletLogo,
+  type: "injected",
+  check: "isCelo"
 };
