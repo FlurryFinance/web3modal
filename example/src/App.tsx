@@ -10,6 +10,8 @@ import WalletConnect from "@walletconnect/web3-provider";
 import Torus from "@toruslabs/torus-embed";
 // @ts-ignore
 import WalletLink from "walletlink";
+// @ts-ignore
+import UAuth from '@uauth/js';
 
 import Button from "./components/Button";
 import Column from "./components/Column";
@@ -233,6 +235,14 @@ class App extends React.Component<any, any> {
     const infuraId = process.env.REACT_APP_INFURA_ID;
     console.log("infuraId", infuraId);
     const providerOptions = {
+      uauth: {
+        package: UAuth,
+        options: {
+          clientID: 'd8326ca3-4f44-40f5-9591-d0571dae2d35',
+          redirectUri: 'http://localhost:3000',
+          scope: 'openid wallet',
+        },
+      },
       walletconnect: {
         package: WalletConnect,
         options: {
@@ -248,7 +258,7 @@ class App extends React.Component<any, any> {
           appName: "Web3Modal Example App",
           infuraId
         }
-      }
+      },
     };
     return providerOptions;
   };

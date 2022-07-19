@@ -13,6 +13,7 @@ import frame from "./frame";
 import binancechainwallet from "./binancechainwallet";
 import walletlink from "./walletlink";
 import coin98 from "./coin98";
+import uauth from "./uauth";
 
 export {
   injected,
@@ -29,5 +30,6 @@ export {
   bitski,
   frame,
   binancechainwallet,
-  walletlink
+  walletlink,
+  uauth
 };

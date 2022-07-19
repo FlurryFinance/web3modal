@@ -24,6 +24,8 @@ import FrameLogo from "../logos/frame.svg";
 import BinanceChainWalletLogo from "../logos/binancechainwallet.svg";
 // @ts-ignore
 import WalletLinkLogo from "../logos/walletlink.svg";
+// @ts-ignore
+import UAuthLogo from "../logos/uauth.svg";
 
 import { IProviderInfo } from "../../helpers";
 
@@ -154,5 +156,16 @@ export const WALLETLINK: IProviderInfo = {
   check: "isWalletLink",
   package: {
     required: [["appName", "infuraId", "rpc"]]
+  }
+};
+
+export const UAUTH: IProviderInfo = {
+  id: "uauth",
+  name: "Unstoppable",
+  logo: UAuthLogo,
+  type: "web",
+  check: "",
+  package: {
+    required: ["clientID", "redirectUri", "scope"]
   }
 };

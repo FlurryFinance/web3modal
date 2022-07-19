@@ -4,7 +4,8 @@ import {
   ERROR_EVENT,
   INJECTED_PROVIDER_ID,
   CACHED_PROVIDER_KEY,
-  MESSAGE_EVENT
+  MESSAGE_EVENT,
+  UAUTH_KEYS
 } from "../constants";
 import {
   isMobile,
@@ -197,6 +198,10 @@ export class ProviderController {
   public clearCachedProvider() {
     this.cachedProvider = "";
     removeLocal(CACHED_PROVIDER_KEY);
+
+    for(const uauthKey of UAUTH_KEYS) {
+      removeLocal(uauthKey);
+    }
   }
 
   public setCachedProvider(id: string) {
